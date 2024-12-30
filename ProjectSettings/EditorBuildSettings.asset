@@ -8,4 +8,16 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/TitleScreen.unity
     guid: 99c9720ab356a0642a771bea13969a05
+  - enabled: 1
+    path: Assets/Scenes/GameScene.unity
+    guid: 830b08fb6a0e9954bb6f8acff0c8b603
+  - enabled: 1
+    path: Assets/Scenes/Highscores.unity
+    guid: 53e6e05820ff4c240a746103bf67cef5
+  - enabled: 1
+    path: Assets/Scenes/Statistics.unity
+    guid: 363e32ba7bdddf143a19a51f404a3611
+  - enabled: 1
+    path: Assets/Scenes/Settings.unity
+    guid: ddccdbd0945a45d4ea85c3e8e5589f38
   m_configObjects: {}

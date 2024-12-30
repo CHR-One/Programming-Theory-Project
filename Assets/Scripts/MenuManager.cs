@@ -1,18 +1,51 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEditor;
+using UnityEngine.SceneManagement;
+using TMPro;
 
 public class MenuManager : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public TMP_InputField playerNameInput;
+    public GameObject player;
+
+    public void Start()
     {
-        
+        player = GameObject.Find("Player");
     }
 
-    // Update is called once per frame
-    void Update()
+    public void StartGame()
     {
-        
+        SceneManager.LoadScene(1);
+    }
+
+    public void QuitGame()
+    {
+#if UNITY_EDITOR
+        EditorApplication.ExitPlaymode();
+#else
+        Application.Quit();
+#endif
+    }
+
+    public void ChangeSettings()
+    {
+        SceneManager.LoadScene(4);
+    }
+
+    public void ShowScores()
+    {
+        SceneManager.LoadScene(2);
+    }
+
+    public void LoadGame()
+    {
+
+    }
+
+    public void ShowStats()
+    {
+        SceneManager.LoadScene(3);
     }
 }
