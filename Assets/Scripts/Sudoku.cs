@@ -4,15 +4,17 @@ using UnityEngine;
 
 public class Sudoku : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public static Sudoku Instance;
 
-    // Update is called once per frame
-    void Update()
+    public void Awake()
     {
-        
+        if (Instance != null)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
+        Instance = this;
+        DontDestroyOnLoad(gameObject);
     }
 }
