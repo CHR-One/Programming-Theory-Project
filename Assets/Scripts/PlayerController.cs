@@ -6,6 +6,7 @@ public class PlayerController : MonoBehaviour
 {
     public static PlayerController Instance;
     public string playerName;
+    public int score = 0;
 
     public void Awake()
     {
@@ -39,5 +40,11 @@ public class PlayerController : MonoBehaviour
     {
         // The number is selected when the mouse left click is pressed on it
         return 0;
+    }
+
+    public void AddPoints(int points, int bonus = 1, int timeBonus = 0)
+    {
+        // Add points to the player score on the basis of the level of difficulty and the points relative to the guessed number
+        score += points * bonus + timeBonus;
     }
 }

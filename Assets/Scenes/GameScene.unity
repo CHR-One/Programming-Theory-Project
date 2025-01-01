@@ -2272,6 +2272,9 @@ MonoBehaviour:
   box7: {fileID: 910844415}
   box8: {fileID: 634642138}
   box9: {fileID: 1242601979}
+  row1: 000000000000000000000000
+  row2: 000000000000000000000000
+  row3: 000000000000000000000000
 --- !u!1 &167059435
 GameObject:
   m_ObjectHideFlags: 0
@@ -7724,6 +7727,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26ce12ee4a03ece428acd26afb19c582, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  squares:
+  - {fileID: 1009931657}
+  - {fileID: 1967194329}
+  - {fileID: 748987511}
+  - {fileID: 666241010}
+  - {fileID: 1593577510}
+  - {fileID: 1274999922}
+  - {fileID: 813407777}
+  - {fileID: 163719421}
+  - {fileID: 1279509222}
 --- !u!1 &633253300
 GameObject:
   m_ObjectHideFlags: 0
@@ -8203,6 +8216,9 @@ MonoBehaviour:
   box7: {fileID: 512911447}
   box8: {fileID: 1423362216}
   box9: {fileID: 801802692}
+  row1: 000000000000000000000000
+  row2: 000000000000000000000000
+  row3: 000000000000000000000000
 --- !u!1 &686062976
 GameObject:
   m_ObjectHideFlags: 0
@@ -8974,6 +8990,9 @@ MonoBehaviour:
   box7: {fileID: 1692243959}
   box8: {fileID: 500013897}
   box9: {fileID: 1280838921}
+  row1: 000000000000000000000000
+  row2: 000000000000000000000000
+  row3: 000000000000000000000000
 --- !u!1 &754711795
 GameObject:
   m_ObjectHideFlags: 0
@@ -9768,6 +9787,9 @@ MonoBehaviour:
   box7: {fileID: 1189997793}
   box8: {fileID: 162762909}
   box9: {fileID: 434085217}
+  row1: 000000000000000000000000
+  row2: 000000000000000000000000
+  row3: 000000000000000000000000
 --- !u!1 &822754543
 GameObject:
   m_ObjectHideFlags: 0
@@ -12697,6 +12719,9 @@ MonoBehaviour:
   box7: {fileID: 157607846}
   box8: {fileID: 1121424202}
   box9: {fileID: 1103445512}
+  row1: 000000000000000000000000
+  row2: 000000000000000000000000
+  row3: 000000000000000000000000
 --- !u!1 &1020553168
 GameObject:
   m_ObjectHideFlags: 0
@@ -15260,6 +15285,9 @@ MonoBehaviour:
   box7: {fileID: 1228980003}
   box8: {fileID: 988661746}
   box9: {fileID: 1387738768}
+  row1: 000000000000000000000000
+  row2: 000000000000000000000000
+  row3: 000000000000000000000000
 --- !u!1 &1278162789
 GameObject:
   m_ObjectHideFlags: 0
@@ -15402,6 +15430,9 @@ MonoBehaviour:
   box7: {fileID: 1193559155}
   box8: {fileID: 1885242987}
   box9: {fileID: 757482638}
+  row1: 000000000000000000000000
+  row2: 000000000000000000000000
+  row3: 000000000000000000000000
 --- !u!1 &1280838921
 GameObject:
   m_ObjectHideFlags: 0
@@ -18232,6 +18263,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ee743e48b8dc584aa3163eab33c20bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  player: {fileID: 0}
+  sudoku: {fileID: 0}
 --- !u!4 &1527183873
 Transform:
   m_ObjectHideFlags: 0
@@ -19135,6 +19168,9 @@ MonoBehaviour:
   box7: {fileID: 1780136216}
   box8: {fileID: 604631096}
   box9: {fileID: 1954296748}
+  row1: 000000000000000000000000
+  row2: 000000000000000000000000
+  row3: 000000000000000000000000
 --- !u!1 &1599004392
 GameObject:
   m_ObjectHideFlags: 0
@@ -24712,6 +24748,9 @@ MonoBehaviour:
   box7: {fileID: 686062976}
   box8: {fileID: 896539180}
   box9: {fileID: 1767115959}
+  row1: 000000000000000000000000
+  row2: 000000000000000000000000
+  row3: 000000000000000000000000
 --- !u!1 &1969064591
 GameObject:
   m_ObjectHideFlags: 0
