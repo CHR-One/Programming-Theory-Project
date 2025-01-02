@@ -4,30 +4,35 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 
-public class Square : MonoBehaviour
+public abstract class Square : MonoBehaviour
 {
-    public GameObject box1, box2, box3, box4, box5, box6, box7, box8, box9;
-    private readonly int[] Numbers = new int[9] { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
+    public GameObject[] boxes = new GameObject[9];    
     public int[] row1 = new int[3];
     public int[] row2 = new int[3];
     public int[] row3 = new int[3];
-    private List<int> remainingNumbers = new List<int>();
-    private List<int> possibleNumbers = new List<int>();
+    public List<int> remainingNumbers = new List<int>();
+    public List<int> possibleNumbers = new List<int>();
 
-    // Start is called before the first frame update
-    void Start()
-    {        
+    public abstract void FillBox(TextMeshProUGUI box);
+    
+
+    public void FillRow(int[] row)
+    {
 
     }
 
-    // Update is called once per frame
-    void Update()
+    public void ShuffleList(List<int> list)
     {
-        
-    }
 
-    public void FillBox()
-    {
-        Debug.Log("FillBox");
+        // Shuffle the list of numbers with the Fisher-Yates algorithm
+        int n = list.Count;
+
+        for (int i = n - 1; i > 0; i--)
+        {
+            int j = Random.Range(0, i + 1);
+            int temp = list[i];
+            list[i] = list[j];
+            list[j] = temp;
+        }
     }
 }

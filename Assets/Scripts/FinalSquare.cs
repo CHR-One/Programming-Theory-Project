@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class FinalSquare : Square
 {
@@ -12,6 +13,11 @@ public class FinalSquare : Square
 
     // Update is called once per frame
     void Update()
+    {
+        
+    }
+
+    public override void FillBox(TextMeshProUGUI box)
     {
         
     }

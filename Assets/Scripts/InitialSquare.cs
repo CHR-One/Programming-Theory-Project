@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class InitialSquare : Square
@@ -14,5 +15,10 @@ public class InitialSquare : Square
     void Update()
     {
         
+    }
+
+    public override void FillBox(TextMeshProUGUI box)
+    {
+
     }
 }

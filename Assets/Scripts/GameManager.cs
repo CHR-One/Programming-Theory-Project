@@ -14,11 +14,12 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         // Initialize objects
-        player = GameObject.Find("Player").GetComponent<PlayerController>();
+        // player = GameObject.Find("Player").GetComponent<PlayerController>();
         sudoku = GameObject.Find("Sudoku").GetComponent<Sudoku>();
-        // Register player name to save pass it to the highscores
 
-        //
+        // Launch the game
+        InitGame();
+
     }
 
     // Update is called once per frame
@@ -36,8 +37,10 @@ public class GameManager : MonoBehaviour
         // Read the level value to launch the right sudoku level of difficulty
 
         // Generate the sudoku grid
+        sudoku.GenerateGrid();
 
         // Hide the boxes on the basis of the level of difficulty and activate the number boxes
+        // sudoku.GenerateProblem();
 
         // Prepare the timer and start when the first number is inserted in the grid
     }
