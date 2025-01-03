@@ -6,15 +6,15 @@ using UnityEngine.UI;
 
 public abstract class Square : MonoBehaviour
 {
-    public GameObject[] boxes = new GameObject[9];    
-    public List<int> row1 = new List<int>();
-    public List<int> row2 = new List<int>();
-    public List<int> row3 = new List<int>();
+    //Array of all boxes of the square
+    public GameObject[] boxes = new GameObject[9];
+    //The square grid
+    public int[,] grid = new int[3, 3];
 
     public abstract void FillBoxes();
     
 
-    public void FillRow(int[] row)
+    public void FillGrid()
     {
 
     }

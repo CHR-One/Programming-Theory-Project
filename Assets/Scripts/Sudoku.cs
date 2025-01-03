@@ -30,66 +30,43 @@ public class Sudoku : MonoBehaviour
         Debug.Log("remainingNumbers: { " + string.Join(", ", remainingNumbers) + " }");
         square1.ShuffleList(remainingNumbers);
         Debug.Log("remainingNumbers shuffled: { " + string.Join(", ", remainingNumbers) + " }");
+        //Cycle for every row
         for (int k = 0; k < 3; k++)
         {
-            square1.row1[k] = remainingNumbers[k];
-            columns[k].Add(square1.row1[k]);
-            square1.row2[k] = remainingNumbers[k + 3];
-            columns[k].Add(square1.row2[k]);
-            square1.row3[k] = remainingNumbers[k + 6];
-            columns[k].Add(square1.row3[k]);
+            //Cycle for every cell in the row
+            for (int j = 0; j < 3; j++)
+            {
+                square1.grid[k, j] = remainingNumbers[j + 3*k];
+                columns[j].Add(square1.grid[k, j]);
+                square1.boxes[j + 3 * k].GetComponentInChildren<TextMeshProUGUI>().text = square1.grid[k, j].ToString();
+            }            
         }
-
-        //square1.FillBoxes();
-        Debug.Log("square1.row1: { " + string.Join(", ", square1.row1) + " }");
-        Debug.Log("square1.row2: { " + string.Join(", ", square1.row2) + " }");
-        Debug.Log("square1.row3: { " + string.Join(", ", square1.row3) + " }");
-        Debug.Log("columns[0]: { " + string.Join(", ", columns[0]) + " }");
-        Debug.Log("columns[1]: { " + string.Join(", ", columns[1]) + " }");
-        Debug.Log("columns[2]: { " + string.Join(", ", columns[2]) + " }");
         remainingNumbers.Clear();
-        Debug.Log("remainingNumbers cleared: { " + string.Join(", ", remainingNumbers) + " }");
-
+        
         // if index = 3
         InitialSquare square4 = squares[3].GetComponent<InitialSquare>();
         remainingNumbers.AddRange(Numbers);
 
         // For each row, find the right numbers to fill the boxes
         // For each box, assign the right number in the rows
-        for (int j = 0; j < 3; j++)
-        {
-            // Find the possible numbers that can be assigned to the box
-            possibleNumbers = remainingNumbers.Except(columns[j]).ToList();
-            Debug.Log("possibleNumbers: { " + string.Join(", ", possibleNumbers) + " }");
-            square4.ShuffleList(possibleNumbers);
-            Debug.Log("possibleNumbers shuffled: { " + string.Join(", ", possibleNumbers) + " }");
-            square4.row1.Add(possibleNumbers[0]);
-            columns[j].Add(possibleNumbers[0]);
-            remainingNumbers.Remove(square4.row1[j]);
-            Debug.Log("remainingNumbers: { " + string.Join(", ", remainingNumbers) + " }");
-        }
-
-
-
-
         for (int k = 0; k < 3; k++)
         {
-            square4.row1[k] = remainingNumbers[k];
-            columns[k].Add(square4.row1[k]);
-            square4.row2[k] = remainingNumbers[k + 3];
-            columns[k].Add(square4.row2[k]);
-            square4.row3[k] = remainingNumbers[k + 6];
-            columns[k].Add(square4.row3[k]);
+            for (int j = 0; j < 3; j++)
+            {
+                possibleNumbers = remainingNumbers.Except(columns[j]).ToList();                
+                square4.ShuffleList(possibleNumbers);
+                square4.grid[k, j] = possibleNumbers[0];
+                columns[j].Add(square4.grid[k, j]);
+                remainingNumbers.Remove(square4.grid[k, j]);
+                square4.boxes[j + 3 * k].GetComponentInChildren<TextMeshProUGUI>().text = square4.grid[k, j].ToString();
+            }
         }
-        //square1.FillBoxes();
-        Debug.Log("square4.row1: { " + string.Join(", ", square1.row1) + " }");
-        Debug.Log("square4.row2: { " + string.Join(", ", square1.row2) + " }");
-        Debug.Log("square4.row3: { " + string.Join(", ", square1.row3) + " }");
-        Debug.Log("columns[0]: { " + string.Join(", ", columns[0]) + " }");
-        Debug.Log("columns[1]: { " + string.Join(", ", columns[1]) + " }");
-        Debug.Log("columns[2]: { " + string.Join(", ", columns[2]) + " }");
+
         remainingNumbers.Clear();
-        Debug.Log("remainingNumbers cleared: { " + string.Join(", ", remainingNumbers) + " }");
+
+        // if index = 6
+        InitialSquare square7 = squares[6].GetComponent<InitialSquare>();
+
     }
 
     public void GenerateProblem()
