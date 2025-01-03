@@ -17,7 +17,7 @@ public class InitialSquare : Square
         
     }
 
-    public override void FillBox(TextMeshProUGUI box)
+    public override void FillBoxes()
     {
 
     }

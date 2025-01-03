@@ -7,13 +7,11 @@ using UnityEngine.UI;
 public abstract class Square : MonoBehaviour
 {
     public GameObject[] boxes = new GameObject[9];    
-    public int[] row1 = new int[3];
-    public int[] row2 = new int[3];
-    public int[] row3 = new int[3];
-    public List<int> remainingNumbers = new List<int>();
-    public List<int> possibleNumbers = new List<int>();
+    public List<int> row1 = new List<int>();
+    public List<int> row2 = new List<int>();
+    public List<int> row3 = new List<int>();
 
-    public abstract void FillBox(TextMeshProUGUI box);
+    public abstract void FillBoxes();
     
 
     public void FillRow(int[] row)

@@ -17,7 +17,7 @@ public class FinalSquare : Square
         
     }
 
-    public override void FillBox(TextMeshProUGUI box)
+    public override void FillBoxes()
     {
         
     }
