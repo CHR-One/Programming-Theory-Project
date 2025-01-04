@@ -19,6 +19,6 @@ public class MiddleSquare : Square
 
     public override void FillBoxes()
     {
-
+        Debug.Log("MiddleSquare FillBoxes launched");
     }
 }

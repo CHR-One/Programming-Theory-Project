@@ -19,6 +19,6 @@ public class FinalSquare : Square
 
     public override void FillBoxes()
     {
-        
+        Debug.Log("FinalSquare FillBoxes launched");
     }
 }

@@ -10,18 +10,15 @@ public abstract class Square : MonoBehaviour
     public GameObject[] boxes = new GameObject[9];
     //The square grid
     public int[,] grid = new int[3, 3];
+    
+    public List<int> remainingNumbers = new List<int>();
+    public List<int> possibleNumbers = new List<int>();
+    public readonly int[] Numbers = { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
 
     public abstract void FillBoxes();
-    
-
-    public void FillGrid()
-    {
-
-    }
 
     public void ShuffleList(List<int> list)
     {
-
         // Shuffle the list of numbers with the Fisher-Yates algorithm
         int n = list.Count;
 
