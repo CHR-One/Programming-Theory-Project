@@ -4,6 +4,7 @@ using TMPro;
 using UnityEngine;
 using System.Linq;
 using UnityEngine.UIElements;
+using UnityEditor.Rendering;
 
 public class InitialSquare : Square
 {
@@ -25,8 +26,9 @@ public class InitialSquare : Square
     public override void FillBoxes()
     {
         remainingNumbers.AddRange(Numbers);
-        
-        for (int k = 0; k < 3; k++)
+
+        //Fille the first two rows
+        for (int k = 0; k < 2; k++)
         {
             for (int j = 0; j < 3; j++)
             {                
@@ -36,7 +38,10 @@ public class InitialSquare : Square
 
                 Debug.Log("possibleNumbers: { " + string.Join(", ", possibleNumbers) + " }");
                 if (possibleNumbers.Count != 1)
+                {                    
                     ShuffleList(possibleNumbers);
+                }
+                    
 
                 Debug.Log("possibleNumbers shuffled: { " + string.Join(", ", possibleNumbers) + " }");
                 square.grid[k, j] = possibleNumbers.First();
@@ -50,5 +55,132 @@ public class InitialSquare : Square
                 Debug.Log("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
             }
         }
+
+        if (sudoku.columns[0].Count == 8)
+        {
+            for (int i = 0; i < 2; i++)
+            {
+                possibleNumbers = remainingNumbers.Except(sudoku.columns[i]).ToList();
+                square.grid[2, i] = possibleNumbers.First();
+                sudoku.columns[i].Add(square.grid[2, i]);
+                boxes[i + 6].GetComponentInChildren<TextMeshProUGUI>().text = square.grid[2, i].ToString();
+            }
+        }
+
+        // Filling now last row for each square with a specialized algorythm
+        // Three possibilities to check
+        // Column 0 may have 2 elements of remainingNumbers, so in the first cell we must put the only value not present
+        if (sudoku.columns[0].Intersect(remainingNumbers).Count() == 2 && sudoku.columns[0].Count != 8)
+        {
+            Debug.Log($"C[0] has 2 elements of R");
+            possibleNumbers = remainingNumbers.Except(sudoku.columns[0]).ToList();
+            square.grid[2, 0] = possibleNumbers.First();
+            sudoku.columns[0].Add(square.grid[2, 0]);
+            remainingNumbers.Remove(possibleNumbers[0]);
+            boxes[6].GetComponentInChildren<TextMeshProUGUI>().text = square.grid[2, 0].ToString();
+
+            if (sudoku.columns[1].Contains(remainingNumbers[0]))
+            {
+                square.grid[2, 1] = remainingNumbers[1];
+                square.grid[2, 2] = remainingNumbers[0];
+            }
+            else
+            {
+                square.grid[2, 1] = remainingNumbers[0];
+                square.grid[2, 2] = remainingNumbers[1];
+            }
+            sudoku.columns[1].Add(square.grid[2, 1]);
+            sudoku.columns[2].Add(square.grid[2, 2]);
+            boxes[7].GetComponentInChildren<TextMeshProUGUI>().text = square.grid[2, 1].ToString();
+            boxes[8].GetComponentInChildren<TextMeshProUGUI>().text = square.grid[2, 2].ToString();
+        }
+
+        // Column 0 may contain only 1 item of remaining numbers, so we need to check other columns
+        if (sudoku.columns[0].Intersect(remainingNumbers).Count() == 1 && sudoku.columns[0].Count != 8)
+        {
+            Debug.Log($"C[0] has 1 element of R");
+            Debug.Log($"remainingNumbers: {{ {string.Join(", ", remainingNumbers)} }}");
+            possibleNumbers = remainingNumbers.Except(sudoku.columns[0]).ToList();
+            ShuffleList(possibleNumbers);
+            square.grid[2, 0] = possibleNumbers[0];
+            sudoku.columns[0].Add(square.grid[2, 0]);
+            remainingNumbers.Remove(square.grid[2, 0]);
+            boxes[6].GetComponentInChildren<TextMeshProUGUI>().text = square.grid[2, 0].ToString();
+
+            if (sudoku.columns[1].Contains(remainingNumbers[0]))
+            {
+                Debug.Log($"remainingNumbers: {{ {string.Join(", ", remainingNumbers)} }}");
+                possibleNumbers = remainingNumbers.Except(sudoku.columns[1]).ToList();
+                square.grid[2, 1] = possibleNumbers[0];
+                square.grid[2, 2] = remainingNumbers[0];
+                sudoku.columns[1].Add(square.grid[2, 1]);
+                sudoku.columns[2].Add(square.grid[2, 2]);
+            }
+            else
+            {
+                square.grid[2, 1] = remainingNumbers[0];
+                square.grid[2, 2] = remainingNumbers[1];
+                sudoku.columns[1].Add(square.grid[2, 1]);
+                sudoku.columns[2].Add(square.grid[2, 1]);
+            }
+
+            boxes[7].GetComponentInChildren<TextMeshProUGUI>().text = square.grid[2, 1].ToString();
+            boxes[8].GetComponentInChildren<TextMeshProUGUI>().text = square.grid[2, 2].ToString();
+        }
+
+        //Final case, Column 0 may have none of the elements of remainingNumbers
+        //It means the a column between 1 and 2 has 2 elements and the other only one
+        if (sudoku.columns[0].Intersect(remainingNumbers).Count() == 0 && sudoku.columns[0].Count >= 2 && sudoku.columns[0].Count != 8)
+        {
+            if (sudoku.columns[0].Count == 2)
+            {
+                ShuffleList(remainingNumbers);
+
+                for (int z = 0; z < 3; z++)
+                {
+                    square.grid[2, z] = remainingNumbers[z];
+                    boxes[z + 6].GetComponentInChildren<TextMeshProUGUI>().text = square.grid[2, z].ToString();
+                    sudoku.columns[z].Add(square.grid[2, z]);
+                    Debug.Log($"columns[{z}]: {{ {string.Join(", ", sudoku.columns[z])} }}");
+                }
+            }
+
+            //Assign cells in case column 1 has two elements of remainingNumbers
+            if (sudoku.columns[1].Intersect(remainingNumbers).Count() == 2)
+            {
+                possibleNumbers = remainingNumbers.Except(sudoku.columns[1]).ToList();
+                square.grid[2, 1] = possibleNumbers[0];
+                sudoku.columns[1].Add(square.grid[2, 1]);
+                remainingNumbers.Remove(possibleNumbers[0]);
+                possibleNumbers = remainingNumbers.Except(sudoku.columns[2]).ToList();
+                square.grid[2, 2] = possibleNumbers[0];
+                sudoku.columns[2].Add(square.grid[2, 2]);
+                remainingNumbers.Remove(possibleNumbers[0]);
+                square.grid[2, 0] = remainingNumbers[0];
+                sudoku.columns[0].Add(square.grid[2, 0]);
+            }
+
+            //Assign cells in case of column 2 with two elements of remainingNumbers
+            if (sudoku.columns[2].Intersect(remainingNumbers).Count() == 2)
+            {
+                possibleNumbers = remainingNumbers.Except(sudoku.columns[2]).ToList();
+                square.grid[2, 2] = possibleNumbers[0];
+                sudoku.columns[2].Add(square.grid[2, 2]);
+                remainingNumbers.Remove(possibleNumbers[0]);
+                possibleNumbers = remainingNumbers.Except(sudoku.columns[1]).ToList();
+                square.grid[2, 1] = possibleNumbers[0];
+                sudoku.columns[1].Add(square.grid[2, 1]);
+                remainingNumbers.Remove(possibleNumbers[0]);
+                square.grid[2, 0] = remainingNumbers[0];
+                sudoku.columns[0].Add(square.grid[2, 0]);
+            }
+
+            for (int i = 0; i < 3; i++)
+            {
+                boxes[i + 6].GetComponentInChildren<TextMeshProUGUI>().text = square.grid[2, i].ToString();
+            }
+        }
+
+        remainingNumbers.Clear();
     }
 }
