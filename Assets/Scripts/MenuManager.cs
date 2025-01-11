@@ -12,7 +12,7 @@ public class MenuManager : MonoBehaviour
 
     public void Start()
     {
-        player = GameObject.Find("Player");
+        player = GameObject.Find("Player");        
     }
 
     public void StartGame()

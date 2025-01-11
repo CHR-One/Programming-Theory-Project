@@ -27,43 +27,55 @@ public class InitialSquare : Square
     {
         remainingNumbers.AddRange(Numbers);
 
-        //Fille the first two rows
-        for (int k = 0; k < 2; k++)
+        //Fill the square rows
+        for (int k = 0; k < 3; k++)
         {
             for (int j = 0; j < 3; j++)
-            {                
-                Debug.Log($"STARTING cycle [{k}, {j}]");
-                Debug.Log("remainingNumbers: { " + string.Join(", ", remainingNumbers) + " }");
-                possibleNumbers = remainingNumbers.Except(sudoku.columns[j]).ToList();                
+            {
+                
+                    Debug.Log($"STARTING cycle [{k}, {j}]");
+                    Debug.Log("remainingNumbers: { " + string.Join(", ", remainingNumbers) + " }");
+                    possibleNumbers = remainingNumbers.Except(sudoku.columns[j]).ToList();
+                
 
-                Debug.Log("possibleNumbers: { " + string.Join(", ", possibleNumbers) + " }");
-                if (possibleNumbers.Count != 1)
-                {                    
-                    ShuffleList(possibleNumbers);
+                if (possibleNumbers.Count > 0)
+                {
+                    Debug.Log("possibleNumbers: { " + string.Join(", ", possibleNumbers) + " }");
+
+                    if (possibleNumbers.Count != 1)
+                        ShuffleList(possibleNumbers);
+
+                    Debug.Log("possibleNumbers shuffled: { " + string.Join(", ", possibleNumbers) + " }");
+                    square.grid[k, j] = possibleNumbers.First();
+                    Debug.Log($"grid[{k}, {j}]: {grid[k, j]}");
+                    sudoku.columns[j].Add(square.grid[k, j]);
+                    Debug.Log($"columns[{j}]: {{ {string.Join(", ", sudoku.columns[j])} }}");
+                    remainingNumbers.Remove(square.grid[k, j]);
+                    boxes[j + 3 * k].GetComponentInChildren<TextMeshProUGUI>().text = square.grid[k, j].ToString();
+                    Debug.Log("remainingNumbers: { " + string.Join(", ", remainingNumbers) + " }");
+                    Debug.Log($"End of cycle [{k}, {j}]");
+                    Debug.Log("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
                 }
-                    
-
-                Debug.Log("possibleNumbers shuffled: { " + string.Join(", ", possibleNumbers) + " }");
-                square.grid[k, j] = possibleNumbers.First();
-                Debug.Log($"grid[{k}, {j}]: {grid[k, j]}");
-                sudoku.columns[j].Add(square.grid[k, j]);
-                Debug.Log($"columns[{j}]: {{ {string.Join(", ", sudoku.columns[j])} }}");
-                remainingNumbers.Remove(square.grid[k, j]);
-                boxes[j + 3 * k].GetComponentInChildren<TextMeshProUGUI>().text = square.grid[k, j].ToString();
-                Debug.Log("remainingNumbers: { " + string.Join(", ", remainingNumbers) + " }");
-                Debug.Log($"End of cycle [{k}, {j}]");
-                Debug.Log("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
             }
         }
 
+        /*
         if (sudoku.columns[0].Count == 8)
         {
-            for (int i = 0; i < 2; i++)
+            for (int i = 0; i < 3; i++)
             {
+                Debug.Log($"STARTING cycle [2, {i}]");
+                Debug.Log("remainingNumbers: { " + string.Join(", ", remainingNumbers) + " }");
+                Debug.Log($"columns[{i}]: {{ {string.Join(", ", sudoku.columns[i])} }}");
                 possibleNumbers = remainingNumbers.Except(sudoku.columns[i]).ToList();
+                Debug.Log("possibleNumbers: { " + string.Join(", ", possibleNumbers) + " }");
                 square.grid[2, i] = possibleNumbers.First();
+                Debug.Log($"grid[{2}, {i}]: {grid[2, i]}");
                 sudoku.columns[i].Add(square.grid[2, i]);
+                Debug.Log($"columns[{i}]: {{ {string.Join(", ", sudoku.columns[i])} }}");
                 boxes[i + 6].GetComponentInChildren<TextMeshProUGUI>().text = square.grid[2, i].ToString();
+                Debug.Log($"End of cycle [2, {i}]");
+                Debug.Log("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
             }
         }
 
@@ -180,7 +192,7 @@ public class InitialSquare : Square
                 boxes[i + 6].GetComponentInChildren<TextMeshProUGUI>().text = square.grid[2, i].ToString();
             }
         }
+        */
 
-        remainingNumbers.Clear();
     }
 }
